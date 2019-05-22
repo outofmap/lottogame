@@ -2,6 +2,7 @@ package com.kakaopay.lottogame;
 
 import org.junit.Assert;
 
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -13,14 +14,14 @@ public class LottoGameTest {
     public void 천원미만으로사기() {
         LottoGame game = new LottoGame();
         // Buy
-        List<Lotto> lottos = game.buyLottos(500);
+        List<Lotto> lottos = game.buyLottos(500,true);
     }
 
     @org.junit.Test
     public void 한개사기() {
         LottoGame game = new LottoGame();
         // Buy
-        List<Lotto> lottos = game.buyLottos(1000);
+        List<Lotto> lottos = game.buyLottos(1000,true);
         Assert.assertEquals(1, lottos.size());
     }
 
@@ -29,7 +30,7 @@ public class LottoGameTest {
     public void 애매하게한개사기() {
         LottoGame game = new LottoGame();
         // Buy
-        List<Lotto> lottos = game.buyLottos(1500);
+        List<Lotto> lottos = game.buyLottos(1500,true);
         Assert.assertEquals(1, lottos.size());
     }
 
@@ -37,7 +38,7 @@ public class LottoGameTest {
     public void 두개사기() {
         LottoGame game = new LottoGame();
         // Buy
-        List<Lotto> lottos = game.buyLottos(2000);
+        List<Lotto> lottos = game.buyLottos(2000,true);
         Assert.assertEquals(2, lottos.size());
     }
 
@@ -74,4 +75,86 @@ public class LottoGameTest {
         lottoWinningSet.pick();
         Assert.assertFalse(lottoWinningSet.getWinningNumbers().contains(lottoWinningSet.getBonusNumber()));
     }
+
+    @org.junit.Test
+    public void 수익률알려주기_3개일치_5등_1개() {
+        LottoGame game = new LottoGame();
+        HashSet<LottoNumber> winningSet = new HashSet<>();
+        winningSet.add(new LottoNumber(1));
+        winningSet.add(new LottoNumber(2));
+        winningSet.add(new LottoNumber(3));
+        winningSet.add(new LottoNumber(10));
+        winningSet.add(new LottoNumber(11));
+        winningSet.add(new LottoNumber(12));
+
+
+        LottoWinningSet lottoWinningSet = new LottoWinningSet(winningSet,new LottoNumber(20));
+
+        HashSet<LottoNumber> lottoNumbers = new HashSet<>();
+        lottoNumbers.add(new LottoNumber(1));
+        lottoNumbers.add(new LottoNumber(2));
+        lottoNumbers.add(new LottoNumber(3));
+        lottoNumbers.add(new LottoNumber(4));
+        lottoNumbers.add(new LottoNumber(5));
+        lottoNumbers.add(new LottoNumber(6));
+
+        // Buy
+        List<Lotto> lottos = game.buySelectledLottos(1000,false, lottoNumbers);
+        Assert.assertEquals(game.countRanking(lottos, lottoWinningSet).get(new Rank(5)), new Integer(1));
+    }
+//
+//    @org.junit.Test
+//    public void 수익률알려주기_4개일치() {
+//        LottoGame game = new LottoGame();
+//        LottoWinningSet lottoWinningSet = new LottoWinningSet();
+//
+//        // Buy
+//        List<Lotto> lottos = game.buyLottos(2000);
+//
+//        Assert.assertFalse(game.calculateEarningRate(lottos,lottoWinningSet));
+//    }
+//
+//    @org.junit.Test
+//    public void 수익률알려주기_5개일치() {
+//        LottoGame game = new LottoGame();
+//        LottoWinningSet lottoWinningSet = new LottoWinningSet();
+//
+//        // Buy
+//        List<Lotto> lottos = game.buyLottos(2000);
+//
+//        Assert.assertFalse(game.calculateEarningRate(lottos,lottoWinningSet));
+//    }
+//
+//    @org.junit.Test
+//    public void 수익률알려주기_5개일치보너스볼() {
+//        LottoGame game = new LottoGame();
+//        LottoWinningSet lottoWinningSet = new LottoWinningSet();
+//
+//        // Buy
+//        List<Lotto> lottos = game.buyLottos(2000);
+//
+//        Assert.assertFalse(game.calculateEarningRate(lottos,lottoWinningSet));
+//    }
+//
+//    @org.junit.Test
+//    public void 수익률알려주기_6개일치() {
+//        LottoGame game = new LottoGame();
+//        LottoWinningSet lottoWinningSet = new LottoWinningSet();
+//
+//        // Buy
+//        List<Lotto> lottos = game.buyLottos(2000);
+//
+//        Assert.assertFalse(game.calculateEarningRate(lottos,lottoWinningSet));
+//    }
+//
+//    @org.junit.Test
+//    public void 수익률알려주기_3개미만() {
+//        LottoGame game = new LottoGame();
+//        LottoWinningSet lottoWinningSet = new LottoWinningSet();
+//
+//        // Buy
+//        List<Lotto> lottos = game.buyLottos(2000);
+//
+//        Assert.assertFalse(game.calculateEarningRate(lottos,lottoWinningSet));
+//    }
 }

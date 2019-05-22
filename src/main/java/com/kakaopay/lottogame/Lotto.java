@@ -11,14 +11,28 @@ import java.util.stream.Collectors;
 public class Lotto {
     public static final int TOTAL_COUNT = 6;
     private Set<LottoNumber> lottoNumbers;
+    private boolean isRandom;
 
     public Lotto() {
-        this.lottoNumbers = new HashSet<>();
-        generateRandomLottoNumbers();
+        this.isRandom = true;
+        this.lottoNumbers= generateRandomLottoNumbers();
     }
 
-    private void generateRandomLottoNumbers() {
-        this.lottoNumbers = RandomNumberGenerator.generateRandomLottoNumbers(TOTAL_COUNT)
+    public Lotto(boolean isRandom, HashSet<LottoNumber> selectedLottoNumbers) {
+        this.lottoNumbers = new HashSet<>();
+        this.isRandom = isRandom;
+        this.lottoNumbers = getLottoNumbers(isRandom, selectedLottoNumbers);
+    }
+
+    private Set<LottoNumber> getLottoNumbers(boolean isRandom, HashSet<LottoNumber> selectedLottoNumbers) {
+        if(isRandom){
+            return generateRandomLottoNumbers();
+        }
+        return selectedLottoNumbers;
+    }
+
+    private Set<LottoNumber> generateRandomLottoNumbers() {
+        return RandomNumberGenerator.generateRandomLottoNumbers(TOTAL_COUNT)
                                                  .stream()
                                                  .map(LottoNumber::new)
                                                  .collect(Collectors.toSet());

@@ -12,6 +12,14 @@ public class LottoWinningSet {
     private Set<LottoNumber> winningNumbers;
     private LottoNumber bonusNumber;
 
+    public LottoWinningSet() {
+    }
+
+    public LottoWinningSet(Set<LottoNumber> winningNumbers, LottoNumber bonusNumber) {
+        this.winningNumbers = winningNumbers;
+        this.bonusNumber = bonusNumber;
+    }
+
     public void pick() {
         Set<LottoNumber> picked = RandomNumberGenerator.generateRandomLottoNumbers(WIN_TOTAL_COUNT)
                 .stream()
@@ -32,7 +40,7 @@ public class LottoWinningSet {
     }
 
     public void showWinningSet() {
-        System.out.println("당첨번호: "+ this.winningNumbers);
-        System.out.println("보너스번호: "+ this.bonusNumber.toString());
+        System.out.println("당첨번호: " + this.winningNumbers);
+        System.out.println("보너스번호: " + this.bonusNumber.toString());
     }
 }

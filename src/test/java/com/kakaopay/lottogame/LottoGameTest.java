@@ -56,6 +56,7 @@ public class LottoGameTest {
     public void 당첨번호알기() {
         LottoWinningSet lottoWinningSet = new LottoWinningSet();
         lottoWinningSet.pick();
+        lottoWinningSet.showWinningSet();
         Assert.assertEquals(6, lottoWinningSet.getWinningNumbers().size());
     }
 
@@ -63,6 +64,7 @@ public class LottoGameTest {
     public void 보너스번호알기() {
         LottoWinningSet lottoWinningSet = new LottoWinningSet();
         lottoWinningSet.pick();
+        lottoWinningSet.showWinningSet();
         Assert.assertTrue( lottoWinningSet.getBonusNumber() != null);
     }
 

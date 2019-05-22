@@ -30,4 +30,9 @@ public class LottoWinningSet {
     public LottoNumber getBonusNumber() {
         return this.bonusNumber;
     }
+
+    public void showWinningSet() {
+        System.out.println("당첨번호: "+ this.winningNumbers);
+        System.out.println("보너스번호: "+ this.bonusNumber.toString());
+    }
 }

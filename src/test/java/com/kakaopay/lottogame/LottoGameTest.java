@@ -61,6 +61,8 @@ public class LottoGameTest {
 
     @org.junit.Test
     public void 보너스번호알기() {
-        Assert.assertTrue( new LottoWinningSet().getBonusNumber() != null);
+        LottoWinningSet lottoWinningSet = new LottoWinningSet();
+        lottoWinningSet.pick();
+        Assert.assertTrue( lottoWinningSet.getBonusNumber() != null);
     }
 }

@@ -13,10 +13,14 @@ public class LottoWinningSet {
     private LottoNumber bonusNumber;
 
     public void pick() {
-        this.winningNumbers = RandomNumberGenerator.generateRandomLottoNumbers(WIN_TOTAL_COUNT)
-                                                   .stream()
-                                                   .map(LottoNumber::new)
-                                                   .collect(Collectors.toSet());
+        Set<LottoNumber> picked = RandomNumberGenerator.generateRandomLottoNumbers(WIN_TOTAL_COUNT)
+                .stream()
+                .map(LottoNumber::new)
+                .collect(Collectors.toSet());
+        LottoNumber bonusNumber = picked.stream().findAny().get();
+        picked.remove(bonusNumber);
+        this.bonusNumber = bonusNumber;
+        this.winningNumbers = picked;
     }
 
     public Set<LottoNumber> getWinningNumbers() {
@@ -24,6 +28,6 @@ public class LottoWinningSet {
     }
 
     public LottoNumber getBonusNumber() {
-        return null;
+        return this.bonusNumber;
     }
 }

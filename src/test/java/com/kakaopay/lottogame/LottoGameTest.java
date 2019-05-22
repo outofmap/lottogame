@@ -65,4 +65,11 @@ public class LottoGameTest {
         lottoWinningSet.pick();
         Assert.assertTrue( lottoWinningSet.getBonusNumber() != null);
     }
+
+    @org.junit.Test
+    public void 보너스번호는당첨번호와불일치() {
+        LottoWinningSet lottoWinningSet = new LottoWinningSet();
+        lottoWinningSet.pick();
+        Assert.assertFalse(lottoWinningSet.getWinningNumbers().contains(lottoWinningSet.getBonusNumber()));
+    }
 }
